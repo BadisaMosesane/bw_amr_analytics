@@ -51,7 +51,7 @@ app = dash.Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=devi
 app.layout = html.Div([
     html.Div([
         html.Div([
-            html.Img(src=app.get_asset_url('corona-logo-1.jpg'),
+            html.Img(src=app.get_asset_url('bup-chop-logo.png'),
                      id='corona-image',
                      style={
                          "height": "60px",
@@ -64,13 +64,13 @@ app.layout = html.Div([
         ),
         html.Div([
             html.Div([
-                html.H3("Covid - 19", style={"margin-bottom": "0px", 'color': 'white'}),
-                html.H5("Track Covid - 19 Cases", style={"margin-top": "0px", 'color': 'white'}),
+                html.H3("Botswana AMR Data Analytics Platform ", style={"margin-bottom": "0px", 'color': 'white'}),
+                html.H5("Track AMR Patterns & Trends", style={"margin-top": "0px", 'color': 'white'}),
             ])
         ], className="one-half column", id="title"),
 
         html.Div([
-            html.H6('Last Updated: ' + str(covid_data_1['date'].iloc[-1].strftime("%B %d, %Y")) + '  00:01 (UTC)',
+            html.H6('Last Updated: ' + 'November 15, 2024 '+ '  10:01 (CAT)',
                     style={'color': 'orange'}),
 
         ], className="one-third column", id='title1'),
@@ -79,7 +79,7 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.H6(children='Global Cases',
+            html.H6(children='National Cases',
                     style={
                         'textAlign': 'center',
                         'color': 'white'}
@@ -104,7 +104,7 @@ app.layout = html.Div([
         ),
 
         html.Div([
-            html.H6(children='Global Deaths',
+            html.H6(children='AMR Prevalence',
                     style={
                         'textAlign': 'center',
                         'color': 'white'}
@@ -129,7 +129,7 @@ app.layout = html.Div([
         ),
 
         html.Div([
-            html.H6(children='Global Recovered',
+            html.H6(children='Antibiotic Consumption',
                     style={
                         'textAlign': 'center',
                         'color': 'white'}
@@ -154,7 +154,7 @@ app.layout = html.Div([
         ),
 
         html.Div([
-            html.H6(children='Global Active',
+            html.H6(children='Healthcare-Associated Infections',
                     style={
                         'textAlign': 'center',
                         'color': 'white'}
@@ -182,17 +182,17 @@ app.layout = html.Div([
     html.Div([
         html.Div([
 
-                    html.P('Select Country:', className='fix_label',  style={'color': 'white'}),
+                    html.P('Select Facility:', className='fix_label',  style={'color': 'white'}),
 
                      dcc.Dropdown(id='w_countries',
                                   multi=False,
                                   clearable=True,
-                                  value='US',
+                                  value='Botswana',
                                   placeholder='Select Countries',
                                   options=[{'label': c, 'value': c}
                                            for c in (covid_data['Country/Region'].unique())], className='dcc_compon'),
 
-                     html.P('New Cases : ' + '  ' + ' ' + str(covid_data_2['date'].iloc[-1].strftime("%B %d, %Y")) + '  ', className='fix_label',  style={'color': 'white', 'text-align': 'center'}),
+                     html.P('New Organism : ' + '  ' + ' ' + "Acinetobacter Baumannii" + '  ', className='fix_label',  style={'color': 'white', 'text-align': 'center'}),
                      dcc.Graph(id='confirmed', config={'displayModeBar': False}, className='dcc_compon',
                      style={'margin-top': '20px'},
                      ),
@@ -255,7 +255,7 @@ def update_confirmed(w_countries):
                                },
                     domain={'y': [0, 1], 'x': [0, 1]})],
             'layout': go.Layout(
-                title={'text': 'New Confirmed',
+                title={'text': 'Change in Prevalence',
                        'y': 1,
                        'x': 0.5,
                        'xanchor': 'center',
@@ -292,7 +292,7 @@ def update_confirmed(w_countries):
                                },
                     domain={'y': [0, 1], 'x': [0, 1]})],
             'layout': go.Layout(
-                title={'text': 'New Death',
+                title={'text': 'New Pathogen',
                        'y': 1,
                        'x': 0.5,
                        'xanchor': 'center',
@@ -329,7 +329,7 @@ def update_confirmed(w_countries):
                                },
                     domain={'y': [0, 1], 'x': [0, 1]})],
             'layout': go.Layout(
-                title={'text': 'New Recovered',
+                title={'text': 'New Drug',
                        'y': 1,
                        'x': 0.5,
                        'xanchor': 'center',
@@ -366,7 +366,7 @@ def update_confirmed(w_countries):
                                },
                     domain={'y': [0, 1], 'x': [0, 1]})],
             'layout': go.Layout(
-                title={'text': 'New Active',
+                title={'text': 'New Patients',
                        'y': 1,
                        'x': 0.5,
                        'xanchor': 'center',
@@ -392,7 +392,7 @@ def update_graph(w_countries):
     colors = ['orange', '#dd1e35', 'green', '#e55467']
 
     return {
-        'data': [go.Pie(labels=['Confirmed', 'Death', 'Recovered', 'Active'],
+        'data': [go.Pie(labels=['E. coli', 'S. aureus', 'P. aeruginosa', 'A. baumannii'],
                         values=[new_confirmed, new_death, new_recovered, new_active],
                         marker=dict(colors=colors),
                         hoverinfo='label+value+percent',
@@ -412,7 +412,7 @@ def update_graph(w_countries):
             paper_bgcolor='#1f2c56',
             hovermode='closest',
             title={
-                'text': 'Total Cases : ' + (w_countries),
+                'text': 'Resistance Rates by pathogen : ' + (w_countries),
 
 
                 'y': 0.93,
@@ -479,7 +479,7 @@ def update_graph(w_countries):
              plot_bgcolor='#1f2c56',
              paper_bgcolor='#1f2c56',
              title={
-                'text': 'Last 30 Days Confirmed Cases : ' + (w_countries),
+                'text': 'Monthly Confirmed AMR Cases : ' + (w_countries),
                 'y': 0.93,
                 'x': 0.5,
                 'xanchor': 'center',
